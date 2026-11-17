@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click the Star!</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 { font-size: 2.2rem; }
+    #star {
+      font-size: 6rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s;
+    }
+    #star:active { transform: scale(0.85); }
+    #score { font-size: 1.5rem; }
+    #message { min-height: 1.5em; font-size: 1.1rem; opacity: 0.9; }
+    button {
+      padding: 10px 22px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #4c1d95;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Click the Star!</h1>
+  <div id="star" title="Click me">⭐</div>
+  <p id="score">Score: 0</p>
+  <p id="message">How many clicks can you get?</p>
+  <button id="reset">Reset</button>
+
+  <script>
+    const star = document.getElementById("star");
+    const scoreText = document.getElementById("score");
+    const message = document.getElementById("message");
+    const emojis = ["⭐", "🌟", "✨", "💫", "🚀", "🌈"];
+    const cheers = {
+      10: "Nice start!",
+      25: "You're on fire! 🔥",
+      50: "Halfway to 100!",
+      100: "100 clicks! Legend! 🏆"
+    };
+    let score = 0;
+
+    star.addEventListener("click", () => {
+      score++;
+      scoreText.textContent = "Score: " + score;
+      star.textContent = emojis[score % emojis.length];
+      if (cheers[score]) message.textContent = cheers[score];
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+      score = 0;
+      scoreText.textContent = "Score: 0";
+      star.textContent = "⭐";
+      message.textContent = "How many clicks can you get?";
+    });
+  </script>
+</body>
+</html>
